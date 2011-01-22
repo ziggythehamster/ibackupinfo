@@ -3,6 +3,12 @@ require 'base64'
 require 'tempfile'
 require 'fileutils'
 
+# Documentation that needs to be turned into code:
+# LibraryDomain = /Library
+# KeychainDomain = /var/Keychains
+# HomeDomain = /var/mobile
+# MediaDomain = /var/mobile/Media
+
 module IBackupInfo
 	# A BackupFile is a single pair of .mddata and .mdinfo files. 
 	class BackupFile
