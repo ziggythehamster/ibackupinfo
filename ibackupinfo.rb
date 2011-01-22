@@ -18,7 +18,7 @@ module IBackupInfo
 		def run
 			case @action
 			when :help then print_usage
-			when :extract then extract
+			when :extract then extract(@args[1], @args[2])
 			end
 		end
 
@@ -32,6 +32,17 @@ module IBackupInfo
 			puts "    ibackupinfo applications srcdir     : Print a list of applications installed in the backup"
 			puts "    ibackupinfo info srcdir             : Print out general information about the backup"
 			exit 0
+		end
+
+		# Extracts the backup
+		# TODO: Add -v switch and honor it, then pass it in to extract.
+		def extract(srcdir, destdir)
+			puts "Extracting backup in #{srcdir} to #{destdir}"
+			Dir.glob("#{srcdir}/*.mdinfo").each do |file|
+				backupfile = IBackupInfo::BackupFile.new(srcdir, File.basename(file.gsub(".mdinfo", "")))
+				backupfile.extract(destdir)
+				backupfile = nil
+			end
 		end
 
 		private
